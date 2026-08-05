@@ -22,6 +22,12 @@
           <span>表格展示 + 模拟加载延迟</span>
         </NuxtLink>
       </li>
+      <li>
+        <NuxtLink to="/contact">
+          <strong>联系我们</strong>
+          <span>获取联系信息</span>
+        </NuxtLink>
+      </li>
     </ul>
   </section>
 </template>
