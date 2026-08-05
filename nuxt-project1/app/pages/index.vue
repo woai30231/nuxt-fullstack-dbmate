@@ -1,9 +1,28 @@
 <template>
   <section>
     <h1>首页</h1>
-    <p>这是 <code>app/pages/index.vue</code>，对应路由 <code>/</code>。</p>
-    <p>点击顶部「关于」可跳转到另一个页面，体验 Nuxt 的文件路由。</p>
-    <NuxtLink class="btn" to="/about">去关于页 →</NuxtLink>
+    <p>下面是几个接口请求示例，数据来自本项目的 <code>server/api</code>。</p>
+
+    <ul class="cards">
+      <li>
+        <NuxtLink to="/posts">
+          <strong>文章列表</strong>
+          <span>useFetch 拉列表，再进详情页</span>
+        </NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/products">
+          <strong>商品列表</strong>
+          <span>带分类查询参数的动态请求</span>
+        </NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/users">
+          <strong>用户列表</strong>
+          <span>表格展示 + 模拟加载延迟</span>
+        </NuxtLink>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -14,7 +33,7 @@ h1 {
 }
 
 p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 1.5rem;
   line-height: 1.6;
   color: #4b5563;
 }
@@ -26,18 +45,31 @@ code {
   font-size: 0.9em;
 }
 
-.btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.55rem 1rem;
-  background: #00dc82;
-  color: #003820;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
 }
 
-.btn:hover {
-  filter: brightness(0.95);
+.cards a {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cards a:hover {
+  border-color: #00dc82;
+}
+
+.cards span {
+  color: #6b7280;
+  font-size: 0.95rem;
 }
 </style>

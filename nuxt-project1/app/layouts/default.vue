@@ -4,6 +4,9 @@
       <strong class="brand">Nuxt 入门</strong>
       <nav class="nav">
         <NuxtLink to="/">首页</NuxtLink>
+        <NuxtLink to="/posts">文章</NuxtLink>
+        <NuxtLink to="/products">商品</NuxtLink>
+        <NuxtLink to="/users">用户</NuxtLink>
         <NuxtLink to="/about">关于</NuxtLink>
       </nav>
     </header>
@@ -25,6 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 1rem 1.5rem;
   background: #fff;
   border-bottom: 1px solid #e5e7eb;
@@ -32,11 +36,14 @@
 
 .brand {
   font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .nav {
   display: flex;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem 1.25rem;
 }
 
 .nav a {
@@ -51,7 +58,7 @@
 }
 
 .main {
-  max-width: 720px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem;
 }
