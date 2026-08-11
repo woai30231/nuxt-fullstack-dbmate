@@ -4,6 +4,8 @@
 -- 执行前请先：USE nuxt_demo;
 -- 依赖：migrations/001_create_posts.sql
 
+SET NAMES utf8mb4;
+
 INSERT INTO posts (id, title, summary, content, author, published_at) VALUES
 (1, '认识 Nuxt 文件路由', 'pages 目录如何自动变成路由。', '在 Nuxt 中，app/pages 下的每个 .vue 文件都会自动注册为路由。index.vue 对应 /，about.vue 对应 /about，posts/[id].vue 对应动态路由。', '小明', '2026-07-01'),
 (2, '用 useFetch 请求接口', 'SSR 友好的数据获取方式。', 'useFetch 会在服务端和客户端按需请求，并把结果注入页面。它适合列表页、详情页等需要首屏数据的场景，还能自动处理 loading 与 error。', '小红', '2026-07-12'),

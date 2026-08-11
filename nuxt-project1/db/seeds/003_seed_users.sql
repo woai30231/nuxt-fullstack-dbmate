@@ -3,6 +3,8 @@
 -- 执行前请先：USE nuxt_demo;
 -- 依赖：migrations/003_create_users.sql
 
+SET NAMES utf8mb4;
+
 INSERT INTO users (id, name, email, role, city) VALUES
 (1, '张三', 'zhangsan@example.com', '管理员', '北京'),
 (2, '李四', 'lisi@example.com', '编辑', '上海'),
