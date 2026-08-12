@@ -13,7 +13,9 @@
     "mysql2": "^3.23.2",
     "nuxt": "^4.5.1",
     "vue": "^3.5.40",
-    "vue-router": "^5.2.0"
+    "vue-router": "^5.2.0",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "dbmate": "^2.35.0"
