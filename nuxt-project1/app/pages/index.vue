@@ -23,6 +23,12 @@
         </NuxtLink>
       </li>
       <li>
+        <NuxtLink to="/diaries">
+          <strong>小明的日记</strong>
+          <span>日记列表，按写作日期倒序展示</span>
+        </NuxtLink>
+      </li>
+      <li>
         <NuxtLink to="/contact">
           <strong>联系我们</strong>
           <span>获取联系信息</span>

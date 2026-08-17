@@ -1,0 +1,16 @@
+-- migrate:up
+CREATE TABLE diaries (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(200) NOT NULL,
+  content TEXT NOT NULL,
+  weather VARCHAR(20) DEFAULT NULL,
+  mood VARCHAR(20) DEFAULT NULL,
+  diary_date DATE NOT NULL,
+  author VARCHAR(50) NOT NULL DEFAULT '小明',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY idx_diaries_date (diary_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- migrate:down
+DROP TABLE IF EXISTS diaries;

@@ -166,6 +166,7 @@ npx dbmate status
 mysql -u root -p --default-character-set=utf8mb4 nuxt_demo < db/seeds/001_seed_posts.sql
 mysql -u root -p --default-character-set=utf8mb4 nuxt_demo < db/seeds/002_seed_products.sql
 mysql -u root -p --default-character-set=utf8mb4 nuxt_demo < db/seeds/003_seed_users.sql
+mysql -u root -p --default-character-set=utf8mb4 nuxt_demo < db/seeds/004_seed_diaries.sql
 ```
 
 Windows 下带中文的 SQL，建议加上 `--default-character-set=utf8mb4`。
