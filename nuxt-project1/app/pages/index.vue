@@ -35,6 +35,34 @@
         </NuxtLink>
       </li>
     </ul>
+
+    <h2>混合渲染演示</h2>
+    <ul class="cards">
+      <li>
+        <NuxtLink to="/static/faq">
+          <strong>常见问题(预渲染)</strong>
+          <span>prerender: 构建时生成静态 HTML</span>
+        </NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/static/team">
+          <strong>团队介绍(预渲染)</strong>
+          <span>prerender: 纯静态内容</span>
+        </NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/static/pricing">
+          <strong>定价方案(预渲染)</strong>
+          <span>prerender: 静态定价卡片</span>
+        </NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/app/dashboard">
+          <strong>工作台(纯 SPA)</strong>
+          <span>ssr: false, 客户端渲染</span>
+        </NuxtLink>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -42,6 +70,11 @@
 h1 {
   margin: 0 0 0.75rem;
   font-size: 2rem;
+}
+
+h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.4rem;
 }
 
 p {
