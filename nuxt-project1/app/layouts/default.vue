@@ -1,3 +1,36 @@
+<script setup lang="ts">
+const loggedIn = useCookie('logged_in')
+
+interface MeResponse {
+  user: {
+    id: number
+    username: string
+    nickname: string | null
+    avatar: string | null
+    role: string
+  } | null
+}
+
+// 已登录才请求当前用户信息（登录后浏览器自动携带 token Cookie）
+const me = ref<MeResponse | null>(null)
+onMounted(async () => {
+  if (!loggedIn.value) return
+  try {
+    me.value = await $fetch<MeResponse>('/api/auth/me')
+  } catch {
+    me.value = null
+  }
+})
+
+async function handleLogout() {
+  try {
+    await $fetch('/api/auth/logout', { method: 'POST' })
+  } finally {
+    await navigateTo('/login')
+  }
+}
+</script>
+
 <template>
   <div class="layout">
     <header class="header">
@@ -9,6 +42,16 @@
         <NuxtLink to="/users">用户</NuxtLink>
         <NuxtLink to="/about">关于</NuxtLink>
       </nav>
+      <div class="user">
+        <template v-if="me?.user">
+          <span class="name">{{ me.user.nickname || me.user.username }}</span>
+          <button type="button" class="logout" @click="handleLogout">退出</button>
+        </template>
+        <template v-else>
+          <NuxtLink to="/login">登录</NuxtLink>
+          <NuxtLink to="/register">注册</NuxtLink>
+        </template>
+      </div>
     </header>
     <main class="main">
       <slot />
@@ -55,6 +98,41 @@
 .nav a.router-link-active {
   color: #00dc82;
   font-weight: 600;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.user a {
+  color: #4b5563;
+  text-decoration: none;
+}
+
+.user a:hover {
+  color: #00dc82;
+}
+
+.name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.logout {
+  padding: 0.35rem 0.8rem;
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #fef2f2;
 }
 
 .main {

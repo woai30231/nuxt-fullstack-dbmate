@@ -7,7 +7,10 @@ export default defineNuxtConfig({
     mysqlPort: process.env.MYSQL_PORT,
     mysqlUser: process.env.MYSQL_USER,
     mysqlPassword: process.env.MYSQL_PASSWORD,
-    mysqlDatabase: process.env.MYSQL_DATABASE
+    mysqlDatabase: process.env.MYSQL_DATABASE,
+    // JWT 认证
+    jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-me',
+    jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d'
   },
   routeRules: {
     // ===== 混合渲染演示 =====
