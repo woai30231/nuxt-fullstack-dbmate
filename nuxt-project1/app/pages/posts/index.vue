@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { data, pending, error, refresh } = await useFetch('/api/posts')
+const likedTitles = useState<string[]>('study-liked-titles', () => []);
+console.log("收藏数组",likedTitles)
 </script>
 
 <template>
