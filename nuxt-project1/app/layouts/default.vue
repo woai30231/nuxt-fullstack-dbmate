@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const loggedIn = useCookie('logged_in')
+const token = useCookie('token')
+const $api = useApi()
 
 interface MeResponse {
   user: {
@@ -11,12 +12,12 @@ interface MeResponse {
   } | null
 }
 
-// 已登录才请求当前用户信息（登录后浏览器自动携带 token Cookie）
+// 已登录才请求当前用户信息（useApi 会自动附加 Authorization: Bearer <token> 请求头）
 const me = ref<MeResponse | null>(null)
 onMounted(async () => {
-  if (!loggedIn.value) return
+  if (!token.value) return
   try {
-    me.value = await $fetch<MeResponse>('/api/auth/me')
+    me.value = await $api<MeResponse>('/api/auth/me')
   } catch {
     me.value = null
   }
@@ -24,8 +25,9 @@ onMounted(async () => {
 
 async function handleLogout() {
   try {
-    await $fetch('/api/auth/logout', { method: 'POST' })
+    await $api('/api/auth/logout', { method: 'POST' })
   } finally {
+    token.value = null // 清除本地 token
     await navigateTo('/login')
   }
 }

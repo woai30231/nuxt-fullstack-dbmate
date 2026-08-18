@@ -8,9 +8,9 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (publicPath) return
 
-  // 用前端可读的登录标记判断（token 是 httpOnly，浏览器 JS 读不到）
-  const loggedIn = useCookie('logged_in')
-  if (!loggedIn.value) {
+  // 判断登录态：token cookie 存在即视为已登录
+  const token = useCookie('token')
+  if (!token.value) {
     // 记住原始地址，登录成功后跳回
     return navigateTo({
       path: '/login',

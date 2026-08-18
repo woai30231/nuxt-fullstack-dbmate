@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
 
-// POST /api/auth/login —— 用户名密码登录，签发 JWT 并写入 httpOnly Cookie
+// POST /api/auth/login —— 用户名密码登录，签发 JWT 并返回 token
+// 前端把 token 存起来，之后每次请求通过 Authorization: Bearer <token> 请求头携带
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { username, password } = body || {}
@@ -37,19 +38,14 @@ export default defineEventHandler(async (event) => {
   // 更新最近登录时间
   await db.query(`UPDATE users SET last_login_at = NOW() WHERE id = ?`, [user.id])
 
-  // 写入 httpOnly Cookie（浏览器自动携带，JS 读不到，防 XSS）
+  // 同时写入一个普通 cookie 作为 token 的存储容器：
+  // - 前端 useCookie('token') 可读可写，路由守卫用它判断登录态
+  // - 浏览器请求会自动携带，SSR 阶段服务端也能读到（保证刷新页面登录态不丢）
+  // - 真正的鉴权走 Authorization 请求头，cookie 仅作存储（非 httpOnly，前端可读）
   setCookie(event, 'token', token, {
-    httpOnly: true,
     sameSite: 'lax',
     path: '/',
     maxAge: 60 * 60 * 24 * 7, // 7 天，与 JWT 有效期一致
-  })
-  // 前端可读的登录标记：httpOnly cookie 浏览器 JS 读不到，
-  // Vue 路由守卫/布局要依赖它判断登录态，所以另存一个普通 cookie
-  setCookie(event, 'logged_in', '1', {
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7,
   })
 
   logger.info(`用户 ${username} 登录成功`)

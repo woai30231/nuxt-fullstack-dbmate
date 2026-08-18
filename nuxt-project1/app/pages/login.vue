@@ -43,6 +43,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
+const token = useCookie('token')
 
 const username = ref('')
 const password = ref('')
@@ -53,10 +54,12 @@ async function handleSubmit() {
   errorMsg.value = ''
   loading.value = true
   try {
-    await $fetch('/api/auth/login', {
+    const res = await $fetch<{ token: string }>('/api/auth/login', {
       method: 'POST',
       body: { username: username.value, password: password.value },
     })
+    // 保存 token：之后每次请求由 useApi 自动附加 Authorization: Bearer <token>
+    token.value = res.token
     // 登录成功，跳回原始页面（或首页）
     const redirect =
       typeof route.query.redirect === 'string' && route.query.redirect

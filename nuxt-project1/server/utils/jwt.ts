@@ -30,7 +30,12 @@ export async function verifyToken(token: string): Promise<AppJwtPayload> {
 
 /** 从请求里读取并校验 token（供受保护接口用） */
 export async function getUserFromEvent(event: any): Promise<AppJwtPayload> {
-  const token = getCookie(event, 'token')
+  // 主流 JWT 方案：优先从 Authorization: Bearer <token> 请求头读取
+  const authHeader = getHeader(event, 'authorization') || ''
+  const token = authHeader.startsWith('Bearer ')
+    ? authHeader.slice(7)
+    : getCookie(event, 'token') // 兜底：兼容个别未带头的请求（如 SSR 渲染兜底）
+
   if (!token) {
     throw createError({ statusCode: 401, statusMessage: '未登录' })
   }
