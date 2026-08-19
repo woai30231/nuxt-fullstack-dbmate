@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  devServer: {
+    https: {
+      key: 'certs/localhost+2-key.pem',
+      cert: 'certs/localhost+2.pem'
+    }
+  },
   runtimeConfig: {
     mysqlHost: process.env.MYSQL_HOST,
     mysqlPort: process.env.MYSQL_PORT,

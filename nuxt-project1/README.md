@@ -22,7 +22,9 @@ bun install
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+本项目默认以 HTTPS 启动（`https://localhost:3000`），首次开发需先生成本地证书，步骤见 [本地 HTTPS 开发环境搭建指南](docs/local-https.md)。
+
+Start the development server:
 
 ```bash
 # npm
