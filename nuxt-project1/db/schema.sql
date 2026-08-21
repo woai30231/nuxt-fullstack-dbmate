@@ -31,6 +31,28 @@ CREATE TABLE `diaries` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `files`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `files` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `original_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户上传的原始文件名',
+  `stored_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '服务器存储文件名(随机,防冲突/防路径穿越)',
+  `ext` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件扩展名',
+  `mime_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'MIME 类型,如 image/png',
+  `size` bigint unsigned NOT NULL COMMENT '文件大小(字节)',
+  `storage_path` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '服务器磁盘相对路径',
+  `uploader` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '上传者(登录用户名)',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_files_stored_name` (`stored_name`),
+  KEY `idx_files_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `posts`
 --
 
@@ -127,5 +149,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('002'),
   ('003'),
   ('004'),
-  ('005');
+  ('005'),
+  ('006');
 UNLOCK TABLES;

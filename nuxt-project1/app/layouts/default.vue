@@ -44,6 +44,7 @@ async function handleLogout() {
         <NuxtLink to="/users">用户</NuxtLink>
         <NuxtLink to="/about">关于</NuxtLink>
         <NuxtLink to="/study">学习demo</NuxtLink>
+        <NuxtLink to="/files">文件上传</NuxtLink>
       </nav>
       <div class="user">
         <template v-if="me?.user">
